@@ -11,8 +11,7 @@ CProperty::CProperty(int code, std::string name, int cost, int rent, int group):
 
 void CProperty::Display()
 {
-	
-	std::cout << mCost << " " << mRent << " " << mGroup << std::endl;
+	std::cout << mCode << " " << mName << " " << mCost << " " << mRent << " " << mGroup << std::endl;
 }
 
 CProperty::~CProperty()

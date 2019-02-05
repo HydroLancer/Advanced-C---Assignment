@@ -3,13 +3,12 @@
 
 class CSquare
 {
-private:
+protected:
 	int mCode;
 	std::string mName;
-
 public:
 	CSquare(int code, std::string name);
-	void Display();
+	virtual void Display();
 	~CSquare();
 };
 

@@ -1,1 +1,8 @@
-﻿  Monopoly2.vcxproj -> D:\Uni Stuff!\2nd Year\Advanced C++\Advanced-C---Assignment\Debug\Monopoly2.exe
+﻿  CProperty.cpp
+  CSpecial.cpp
+  CSquare.cpp
+  Monopoly2.cpp
+c:\users\hydro\desktop\uni lab stuff\advanced c++\advanced-c---assignment\monopoly2\monopoly2.cpp(19): warning C4018: '<': signed/unsigned mismatch
+  CPlayer.cpp
+  Generating Code...
+  Monopoly2.vcxproj -> C:\Users\Hydro\Desktop\Uni Lab Stuff\Advanced C++\Advanced-C---Assignment\Debug\Monopoly2.exe

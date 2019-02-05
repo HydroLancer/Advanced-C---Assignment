@@ -12,5 +12,6 @@
 #include "CSquare.h"
 #include "CSpecial.h"
 #include "CProperty.h"
+#include "CPlayer.h"
 
 

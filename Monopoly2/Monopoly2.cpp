@@ -1,6 +1,9 @@
 //Monopoly Main. 
 #include "pch.h"
 #include "MonopolyHeader.hpp"
+#define _CRTDBG_MAP_ALLOC  
+#include <stdlib.h>  
+#include <crtdbg.h>  
 
 void boardLoading(std::vector<CSquare*>& board);
 
@@ -8,15 +11,35 @@ int main()
 {
 	std::vector<CSquare*> board;
 	boardLoading(board);
+	CPlayer* playerOne = new CPlayer("Dog");
+	CPlayer* playerTwo = new CPlayer("Car");
 
+	bool endOfGame = false;
+	int round = 0;
+	while (!endOfGame)
+	{
+		round++;
+
+		if (round <= 20)
+		{
+			endOfGame = true;
+		}
+	}
+	std::cout << "Game Over!" << std::endl;
+
+	//delete the objects now that the program has ended
+	for (int i = 0; i < board.size(); i++)
+	{
+		delete board[i];
+	}
+	board.clear();
+	_CrtDumpMemoryLeaks();
 	return 0;
 
 }
 
 void boardLoading(std::vector<CSquare*>& board)
 {
-	int code;
-
 	std::ifstream inputFile;
 	inputFile.open("Monopoly.txt");
 	if (!inputFile)
@@ -74,6 +97,6 @@ void boardLoading(std::vector<CSquare*>& board)
 		board.push_back(Square);
 	}
 	//time to try file input again..
-	std::cout << "Map Done!";
+	std::cout << "Map Done!" << std::endl;
 	system("pause");
 }

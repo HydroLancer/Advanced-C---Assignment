@@ -5,6 +5,7 @@ class CSpecial :
 {
 public:
 	CSpecial(int code, std::string name);
+	void Display();
 	~CSpecial();
 };
 
