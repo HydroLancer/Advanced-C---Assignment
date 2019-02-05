@@ -2,7 +2,7 @@
 #include "pch.h"
 #include "MonopolyHeader.hpp"
 
-void boardLoading(std::vector<CSquare*> board);
+void boardLoading(std::vector<CSquare*>& board);
 
 int main()
 {
@@ -13,7 +13,7 @@ int main()
 
 }
 
-void boardLoading(std::vector<CSquare*> board)
+void boardLoading(std::vector<CSquare*>& board)
 {
 	int code;
 
@@ -44,7 +44,7 @@ void boardLoading(std::vector<CSquare*> board)
 			inputFile >> cost;
 			inputFile >> rent;
 			inputFile >> group;
-			Square = new CProperty(code, tempName, cost, rent, group);
+			Square = new CProperty(code, tempName, cost, rent, group); //Not sure if I'm doing this right??
 			Square->Display();
 		}
 		if (code == 2 || code == 4 || code == 5 || code == 6)
