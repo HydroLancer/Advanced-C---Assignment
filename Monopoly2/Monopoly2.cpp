@@ -7,18 +7,34 @@
 
 void boardLoading(std::vector<CSquare*>& board);
 
+
 int main()
 {
 	std::vector<CSquare*> board;
 	boardLoading(board);
-	CPlayer* playerOne = new CPlayer("Dog");
+	CPlayer* playerOne = new CPlayer("Dog"); //instantiates 2 new players
 	CPlayer* playerTwo = new CPlayer("Car");
+
+	srand(4); //Sets the seed to 4.
 
 	bool endOfGame = false;
 	int round = 0;
+
+	std::cout << "Welcome to Monopoly." << std::endl << std::endl;
+
 	while (!endOfGame)
 	{
 		round++;
+
+		std::cout << playerOne->DisplayName() << "'s Turn" << std::endl;
+
+		std::system("pause");
+		//generate random number here (Function in CPlayer Class..)
+		//Display number
+
+		////////////////////
+		//actual game here//
+		////////////////////
 
 		if (round <= 20)
 		{

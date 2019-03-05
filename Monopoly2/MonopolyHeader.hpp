@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <deque>
+#include <ctime>
 
 //Project Specific Headers
 #include "CSquare.h"
