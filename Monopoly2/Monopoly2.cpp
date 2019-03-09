@@ -22,7 +22,7 @@ int main()
 	srand(4); //Sets the seed to 4.
 
 	bool endOfGame = false;
-	int round = 19;
+	int round = 0;
 
 	std::cout << "Welcome to Monopoly." << std::endl << std::endl;
 
@@ -43,6 +43,7 @@ int main()
 		board[roll]->LandedOn(playerOne, playerTwo);
 		
 		std::system("pause");
+		std::cout << std::endl;
 
 		//---------Player 2's Turn------------------//
 		std::cout << playerTwo->ReturnName() << "'s Turn" << std::endl;
@@ -50,6 +51,7 @@ int main()
 		board[roll]->LandedOn(playerTwo, playerOne);
 
 		std::system("pause");
+		std::cout << std::endl;
 
 		if (round >= 20)
 		{
@@ -57,8 +59,10 @@ int main()
 		}
 	}
 	std::cout << "Game Over!" << std::endl << std::endl;
+
 	std::cout << playerOne->ReturnName() << " finished with " << playerOne->ReturnBalance() << " and " << playerOne->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
 	std::cout << playerTwo->ReturnName() << " finished with " << playerTwo->ReturnBalance() << " and " << playerTwo->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
+
 	std::system("pause");
 
 	//delete the objects now that the program has ended
