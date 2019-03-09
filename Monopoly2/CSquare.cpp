@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "MonopolyHeader.hpp"
-
+#include "CSquare.h"
 
 CSquare::CSquare(int code, std::string name)
 {
@@ -9,12 +8,7 @@ CSquare::CSquare(int code, std::string name)
 	isOwned = false;
 }
 
-void CSquare::Display()
-{
-	std::cout << mCode << " " << mName << std::endl;
-}
-
-
 CSquare::~CSquare()
 {
+
 }

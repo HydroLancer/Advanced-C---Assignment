@@ -1,4 +1,6 @@
 #pragma once
+#include "CSquare.h"
+#include "CPlayer.h"
 #include "MonopolyHeader.hpp"
 class CProperty :
 	public CSquare
@@ -9,7 +11,10 @@ protected:
 	int mGroup;
 public:
 	CProperty(int code, std::string name, int cost, int rent, int group);
-	void Display();
+	std::string ReturnName();
+	void LandedOn(CPlayer* player1, CPlayer* player2);
+	void Buy(CPlayer* player);
+	int CheckForOwnership();
 	~CProperty();
 };
 
