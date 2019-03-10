@@ -20,8 +20,17 @@ int main()
 	boardLoading(board);
 	CPlayer* playerOne = new CPlayer("Dog", 1); //instantiates 2 new players
 	CPlayer* playerTwo = new CPlayer("Car", 2);
+	int seed = 0;
+	
+	//Drags up the seed number from the seed.txt file.
+	std::ifstream seedFile;
+	seedFile.open("seed.txt");
+	while (!seedFile.eof())
+	{
+		seedFile >> seed;
+	}
 
-	srand(4); //Sets the seed to 4.
+	srand(seed); //Sets the seed to whatever was contained in seed.txt
 
 	bool endOfGame = false;
 	int round = 0;
