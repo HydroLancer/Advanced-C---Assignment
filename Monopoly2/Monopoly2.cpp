@@ -1,13 +1,15 @@
 //Monopoly Main. 
 #include "pch.h"
-#include "MonopolyHeader.hpp"
 #define _CRTDBG_MAP_ALLOC  
-#include <stdlib.h>  
+
+#include "MonopolyHeader.hpp"
 #include <crtdbg.h>  
+
 #include "CSquare.h"
 #include "CSpecial.h"
 #include "CProperty.h"
 #include "CPlayer.h"
+#include "CAirport.h"
 
 void boardLoading(std::vector<CSquare*>& board);
 
@@ -42,6 +44,7 @@ int main()
 		int roll = playerOne->Roll(); 
 		board[roll]->LandedOn(playerOne, playerTwo);
 		
+		std::cout << playerOne->ReturnName() << " has " << POUND << playerOne->ReturnBalance() << std::endl << std::endl;
 		std::system("pause");
 		std::cout << std::endl;
 
@@ -50,6 +53,7 @@ int main()
 		roll = playerTwo->Roll();
 		board[roll]->LandedOn(playerTwo, playerOne);
 
+		std::cout << playerTwo->ReturnName() << " has " << POUND << playerTwo->ReturnBalance() << std::endl << std::endl;
 		std::system("pause");
 		std::cout << std::endl;
 
@@ -60,8 +64,11 @@ int main()
 	}
 	std::cout << "Game Over!" << std::endl << std::endl;
 
-	std::cout << playerOne->ReturnName() << " finished with " << playerOne->ReturnBalance() << " and " << playerOne->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
-	std::cout << playerTwo->ReturnName() << " finished with " << playerTwo->ReturnBalance() << " and " << playerTwo->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
+	std::cout << playerOne->ReturnName() << " finished with " << POUND << playerOne->ReturnBalance() 
+		<< " and " << playerOne->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
+
+	std::cout << playerTwo->ReturnName() << " finished with " << POUND << playerTwo->ReturnBalance() 
+		<< " and " << playerTwo->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
 
 	std::system("pause");
 
@@ -79,6 +86,7 @@ int main()
 
 }
 
+//Pulls the board from a txt file and loads them into appropriate classes. 
 void boardLoading(std::vector<CSquare*>& board)
 {
 	std::ifstream inputFile;
@@ -99,7 +107,9 @@ void boardLoading(std::vector<CSquare*>& board)
 		CSquare* Square;
 
 		inputFile >> code;
-		if (code == 1)
+
+		//this bunch of ifs just checks a square's code and acts appropriately
+		if (code == 1) //A property type
 		{
 			inputFile >> tempName;
 			inputFile >> nameAppend;
@@ -111,21 +121,29 @@ void boardLoading(std::vector<CSquare*>& board)
 			Square = new CProperty(code, tempName, cost, rent, group); //Not sure if I'm doing this right??
 			Square->ReturnName();
 		}
-		if (code == 2 || code == 4 || code == 5 || code == 6)
+		if (code == 2 || code == 4 || code == 5 || code == 6) //Special Squares (GO, Bonus, Penalty, Jail)
 		{
 			inputFile >> tempName;
 			Square = new CSpecial(code, tempName);
 			Square->ReturnName();
 		}
-		if (code == 3 || code == 8)
+		if (code == 3 || code == 8) //Airport or Free Parking
 		{
 			inputFile >> tempName;
 			inputFile >> nameAppend;
 			tempName = tempName + " " + nameAppend;
-			Square = new CSpecial(code, tempName);
+			if (code == 3)
+			{
+				Square = new CAirport(code, tempName);
+			}
+			else 
+			{
+				Square = new CSpecial(code, tempName);
+			}
+			
 			Square->ReturnName();
 		}
-		if (code == 7)
+		if (code == 7) // Go To Jail
 		{
 			inputFile >> tempName;
 			inputFile >> nameAppend;

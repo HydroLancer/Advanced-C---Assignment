@@ -20,7 +20,8 @@ public:
 	int ReturnPortfolioSize();
 
 	//Setters
-	void AdjustBalance(int newBalance);
+	void AddBalance(int addition);
+	void MinusBalance(int removal);
 	void AddProperty(int pos);
 	void SetPosition(int newPos);
 

@@ -31,19 +31,10 @@ void CProperty::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 	}
 	else
 	{
-		//Time to pay the other player
-		//This bit essentially pulls the current balances of each player, and then modifies them according to the rent cost of the current square
-		//after modifying the balances, uses a setter to make the player's balance set. 
-		int otherPlayerBalance = otherPlayer->ReturnBalance();
-		int currentPlayerBalance = currentPlayer->ReturnBalance();
+		currentPlayer->MinusBalance(mRent);
+		otherPlayer->AddBalance(mRent);
 
-		currentPlayerBalance = currentPlayerBalance - mRent;
-		otherPlayerBalance = otherPlayerBalance + mRent;
-
-		currentPlayer->AdjustBalance(currentPlayerBalance);
-		otherPlayer->AdjustBalance(otherPlayerBalance);
-
-		std::cout << currentPlayer->ReturnName() << " pays " << otherPlayer->ReturnName() << " " << mRent << std::endl;
+		std::cout << currentPlayer->ReturnName() << " pays " << otherPlayer->ReturnName() << " " << POUND << mRent << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -53,19 +44,17 @@ void CProperty::Buy(CPlayer* player)
 	//This function only runs if the property isn't owned. 
 	//Basically it sets the property's values to be owned, and who by (using player's Number)
 	//then takes the cost of the property from the player's balance, then adds the position of where the player is into the player's portfolio
-	int playerBalance = player->ReturnBalance();
 
-	if (playerBalance > 0) 
+	if (player->ReturnBalance() > 0) 
 	{
 		ownedBy = player->ReturnPlayerNumber();
 		isOwned = true;
 
-		playerBalance = playerBalance - mCost;
-		player->AdjustBalance(playerBalance);
+		player->MinusBalance(mCost);
 		player->AddProperty(player->ReturnPosition());
 
 		//Text output for verification
-		std::cout << player->ReturnName() << " buys " << mName << " for " << mCost << std::endl;
+		std::cout << player->ReturnName() << " buys " << mName << " for " << POUND << mCost << std::endl;
 		std::cout << player->ReturnName() << " now owns " << player->ReturnPortfolioSize() << " properties." << std::endl;
 	}
 	else

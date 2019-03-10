@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAirport.h" />
     <ClInclude Include="CProperty.h" />
     <ClInclude Include="CSpecial.h" />
     <ClInclude Include="CSquare.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="CPlayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAirport.cpp" />
     <ClCompile Include="CProperty.cpp" />
     <ClCompile Include="CSpecial.cpp" />
     <ClCompile Include="CSquare.cpp" />

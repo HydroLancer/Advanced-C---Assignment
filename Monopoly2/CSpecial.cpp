@@ -13,47 +13,111 @@ std::string CSpecial::ReturnName()
 //
 void CSpecial::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 {
-	int check = 0;
-	int currentPlayerBalance = 0;
-	int otherPlayerBalance = 0;
+	int chance = 0;
 	//What happens when the player lands on a spot
 	switch (mCode)
 	{
 	case 2: //Go
+		//The handling of money being given for landing on GO is in CPlayer::Roll()
+		//as it's not guaranteed to land on go every time but you still need to get that cash moneys. 
 		std::cout << currentPlayer->ReturnName() << " lands on GO" << std::endl;
-		break;
-
-	case 3: //Airport
-		check = CheckForOwnership();
-		if (check == 0)
-		{
-			Buy(currentPlayer);
-		}
-		else if (check == currentPlayer->ReturnPlayerNumber())
-		{
-			std::cout << "Nothing Happens" << std::endl;
-		}
-		else
-		{
-			currentPlayerBalance = currentPlayer->ReturnBalance();
-			otherPlayerBalance = otherPlayer->ReturnBalance();
-
-			currentPlayerBalance = currentPlayerBalance - 10;
-			otherPlayerBalance = otherPlayerBalance + 10;
-
-			currentPlayer->AdjustBalance(currentPlayerBalance);
-			otherPlayer->AdjustBalance(otherPlayerBalance);
-
-			std::cout << currentPlayer->ReturnName() << " pays £10 of Goods." << std::endl;
-		}
 		break;
 
 	case 4: //Bonus
 	
+		std::cout << currentPlayer->ReturnName() << " lands on Bonus.." << std::endl;
+
+		chance = static_cast<int>(static_cast<double> (rand()) / (RAND_MAX + 1) * 6.0f + 1);
+		switch (chance)
+		{
+		case 1:
+			//Player finds £20 on the ground
+			std::cout << "Find some Money. Player gains " << POUND << "20" << std::endl;
+			currentPlayer->AddBalance(20);
+			break;
+
+		case 2:
+			//Player wins a competition
+			std::cout << "Win Competition. Player gains " << POUND << "50" << std::endl;
+			currentPlayer->AddBalance(50);
+			break;
+
+		case 3:
+			//Tax Rebate
+			std::cout << "Tax Rebate. Player gains " << POUND << "100" << std::endl;
+			currentPlayer->AddBalance(100);
+			break;
+
+		case 4:
+			//Win Lottery
+			std::cout << "Lottery Win. Player gains " << POUND << "150" << std::endl;
+			currentPlayer->AddBalance(150);
+			break;
+
+		case 5:
+			//Bequest.
+			std::cout << "Bequest. Player gains " << POUND << "200" << std::endl;
+			currentPlayer->AddBalance(200);
+			break;
+
+		case 6:
+			//Birthday!
+			std::cout << "Birthday. Player gains " << POUND << "300" << std::endl;
+			currentPlayer->AddBalance(300);
+			break;
+
+		default:
+			//shouldn't happen, but to be safe..
+			std::cout << "Wuh oh, it broke." << std::endl << std::endl;
+			break;
+		}
+		std::cout << currentPlayer->ReturnName() << " now has " << POUND << currentPlayer->ReturnBalance() << std::endl;
 		break;
 
 	case 5: //Penalty
-	
+		std::cout << currentPlayer->ReturnName() << " lands on Penalty.." << std::endl;
+		chance = static_cast<int>(static_cast<double> (rand()) / (RAND_MAX + 1) * 6.0f + 1);
+		switch (chance)
+		{
+		case 1:
+			//Pay food bill
+			std::cout << "Pay food bill. Player loses " << POUND << "20" << std::endl;
+			currentPlayer->MinusBalance(20);
+			break;
+
+		case 2:
+			//Phone bill
+			std::cout << "Pay phone bill. Player loses " << POUND << "50" << std::endl;
+			currentPlayer->MinusBalance(50);
+			break;
+
+		case 3:
+			//Heating Bill
+			std::cout << "Pay heating bill. Player loses " << POUND << "100" << std::endl;
+			currentPlayer->MinusBalance(100);
+			break;
+
+		case 4:
+			//Vehicle Tax
+			std::cout << "Pay vehicle tax. Player loses " << POUND << "150" << std::endl;
+			currentPlayer->MinusBalance(150);
+			break;
+
+		case 5:
+			//Fuel Bill
+			std::cout << "Pay fuel bill. Player loses " << POUND << "200" << std::endl;
+			currentPlayer->MinusBalance(200);
+			break;
+
+		case 6:
+			//Windfall Tax
+			std::cout << "Pay Windfall Tax. Player loses " << POUND << "300" << std::endl;
+			currentPlayer->MinusBalance(300);
+			break;
+
+		default:
+			break;
+		}
 		break;
 
 	case 6: //Just Visiting/Jail
@@ -62,14 +126,12 @@ void CSpecial::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 
 	case 7: //Go To Jail
 		//Takes 50 off the current player, sets their position to 6 (Jail/Just Visiting) 
-		currentPlayerBalance = currentPlayer->ReturnBalance();
-		currentPlayerBalance = currentPlayerBalance - 50;
-		currentPlayer->AdjustBalance(currentPlayerBalance);
+		currentPlayer->MinusBalance(50);
 		currentPlayer->SetPosition(6);
 
 		std::cout << currentPlayer->ReturnName() << " lands on Go To Jail" << std::endl 
 			<< currentPlayer->ReturnName() << " goes to Jail" << std::endl 
-			<< currentPlayer->ReturnName() << " pays £50" << std::endl;
+			<< currentPlayer->ReturnName() << " pays " << POUND << "50" << std::endl;
 		break;
 
 	case 8: //Free Parking
@@ -83,23 +145,7 @@ void CSpecial::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 
 void CSpecial::Buy(CPlayer* player)
 {
-	//Only aiports!
-	int playerBalance = player->ReturnBalance();
-
-	if (playerBalance > 0)
-	{
-		playerBalance = playerBalance - 200; //Because the only special square you can buy is Airports, and they're a fixed cost. 
-		isOwned = true;
-		ownedBy = player->ReturnPlayerNumber();
-		player->AddProperty(player->ReturnPosition());
-		
-		std::cout << player->ReturnName() << " buys " << mName << " for 200" << std::endl;
-	}
-	else
-	{
-		std::cout << player->ReturnName() << " cannot afford to buy " << mName << std::endl;
-	}
-
+	//You Can't buy Special Squares. 
 }
 
 int CSpecial::CheckForOwnership()

@@ -1,3 +1,7 @@
-﻿  Monopoly2.cpp
-d:\uni stuff!\2nd year\advanced c++\advanced-c---assignment\monopoly2\monopoly2.cpp(66): warning C4018: '<': signed/unsigned mismatch
+﻿  CSpecial.cpp
+d:\uni stuff!\2nd year\advanced c++\advanced-c---assignment\monopoly2\monopolyheader.hpp(12): warning C4309: 'initializing': truncation of constant value
+  Monopoly2.cpp
+d:\uni stuff!\2nd year\advanced c++\advanced-c---assignment\monopoly2\monopolyheader.hpp(12): warning C4309: 'initializing': truncation of constant value
+d:\uni stuff!\2nd year\advanced c++\advanced-c---assignment\monopoly2\monopoly2.cpp(73): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Monopoly2.vcxproj -> D:\Uni Stuff!\2nd Year\Advanced C++\Advanced-C---Assignment\Debug\Monopoly2.exe
