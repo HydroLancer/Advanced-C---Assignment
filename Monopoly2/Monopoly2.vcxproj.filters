@@ -13,28 +13,52 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Class Headers">
+      <UniqueIdentifier>{c953d560-5ef0-4b99-96f3-7b11085eb901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class Source">
+      <UniqueIdentifier>{a56c7bb6-a9d3-445a-866a-db708ebca082}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSquare.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MonopolyHeader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CProperty.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CSpecial.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CSquare.h">
+      <Filter>Class Headers</Filter>
     </ClInclude>
     <ClInclude Include="CAirport.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CBonus.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CProperty.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CGoToJail.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CPenalty.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CFreeParking.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AllTheClasses.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGo.h">
+      <Filter>Class Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CJustVisiting.h">
+      <Filter>Class Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -44,20 +68,35 @@
     <ClCompile Include="Monopoly2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CSquare.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CAirport.cpp">
+      <Filter>Class Source</Filter>
     </ClCompile>
-    <ClCompile Include="CProperty.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CSpecial.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CBonus.cpp">
+      <Filter>Class Source</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Class Source</Filter>
     </ClCompile>
-    <ClCompile Include="CAirport.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CProperty.cpp">
+      <Filter>Class Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CSquare.cpp">
+      <Filter>Class Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CGoToJail.cpp">
+      <Filter>Class Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CPenalty.cpp">
+      <Filter>Class Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CFreeParking.cpp">
+      <Filter>Class Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CGo.cpp">
+      <Filter>Class Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CJustVisiting.cpp">
+      <Filter>Class Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

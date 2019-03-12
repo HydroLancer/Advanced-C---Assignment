@@ -8,14 +8,12 @@ CAirport::CAirport(int code, std::string name) : CSquare(code, name)
 	mGoodsCost = 10;
 }
 
-std::string CAirport::ReturnName()
-{
-	return mName;
-}
-
+//Works a bit like in CProperty, but the way the "rent" works is just a set £10 no matter what.
+//It simply checks to make sure it's not owned. If it isn't, the Buy() function sets the isOwned and ownedBy to true/player number
+//if it is owned, it checks who by (even though for the moment it's only 2 players) and pays rent accordingly. 
 void CAirport::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 {
-	std::cout << currentPlayer->ReturnName() << " landed on " << mName << std::endl;
+	std::cout << currentPlayer->ReturnName() << " lands on " << mName << std::endl;
 	int check = CheckForOwnership();
 	if (check == 0)
 	{
@@ -34,6 +32,7 @@ void CAirport::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 	}
 }
 
+//Sets isOwned and ownedBy as described above, takes money off the player, adds the property to the player's portfolio.
 void CAirport::Buy(CPlayer* player)
 {
 	if (player->ReturnBalance() > 0)
@@ -51,6 +50,7 @@ void CAirport::Buy(CPlayer* player)
 	}
 }
 
+//Returns either 0 (not owned) or (currently) 1 or 2 depending on who owns it.
 int CAirport::CheckForOwnership()
 {
 	if (isOwned)

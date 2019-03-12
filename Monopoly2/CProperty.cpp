@@ -9,16 +9,11 @@ CProperty::CProperty(int code, std::string name, int cost, int rent, int group):
 	mGroup = group;
 }
 
-std::string CProperty::ReturnName()
-{
-	return mName;
-}
-
 void CProperty::LandedOn(CPlayer* currentPlayer, CPlayer* otherPlayer)
 {
 	//What happens when the player lands on a spot
 	//uses either the Buy/Rent functions from CProperty/CSpecial depending on instanced item. 
-	std::cout << currentPlayer->ReturnName() << " lands on: " << ReturnName() << std::endl;
+	std::cout << currentPlayer->ReturnName() << " lands on: " << mName << std::endl;
 
 	int check = CheckForOwnership(); //Check for Ownership returns 0 if it's not owned, or the owner's number if it is. 
 	if (check == 0)
@@ -55,7 +50,6 @@ void CProperty::Buy(CPlayer* player)
 
 		//Text output for verification
 		std::cout << player->ReturnName() << " buys " << mName << " for " << POUND << mCost << std::endl;
-		std::cout << player->ReturnName() << " now owns " << player->ReturnPortfolioSize() << " properties." << std::endl;
 	}
 	else
 	{

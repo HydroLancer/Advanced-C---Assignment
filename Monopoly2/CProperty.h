@@ -11,7 +11,6 @@ protected:
 	int mGroup;
 public:
 	CProperty(int code, std::string name, int cost, int rent, int group);
-	std::string ReturnName();
 	void LandedOn(CPlayer* player1, CPlayer* player2);
 	void Buy(CPlayer* player);
 	int CheckForOwnership();

@@ -151,9 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AllTheClasses.h" />
     <ClInclude Include="CAirport.h" />
+    <ClInclude Include="CBonus.h" />
+    <ClInclude Include="CFreeParking.h" />
+    <ClInclude Include="CGo.h" />
+    <ClInclude Include="CGoToJail.h" />
+    <ClInclude Include="CJustVisiting.h" />
+    <ClInclude Include="CPenalty.h" />
     <ClInclude Include="CProperty.h" />
-    <ClInclude Include="CSpecial.h" />
     <ClInclude Include="CSquare.h" />
     <ClInclude Include="MonopolyHeader.hpp" />
     <ClInclude Include="pch.h" />
@@ -161,8 +167,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAirport.cpp" />
+    <ClCompile Include="CBonus.cpp" />
+    <ClCompile Include="CFreeParking.cpp" />
+    <ClCompile Include="CGo.cpp" />
+    <ClCompile Include="CGoToJail.cpp" />
+    <ClCompile Include="CJustVisiting.cpp" />
+    <ClCompile Include="CPenalty.cpp" />
     <ClCompile Include="CProperty.cpp" />
-    <ClCompile Include="CSpecial.cpp" />
     <ClCompile Include="CSquare.cpp" />
     <ClCompile Include="Monopoly2.cpp" />
     <ClCompile Include="pch.cpp">

@@ -17,7 +17,6 @@ public:
 	int ReturnBalance();
 	int ReturnPosition();
 	int ReturnPlayerNumber();
-	int ReturnPortfolioSize();
 
 	//Setters
 	void AddBalance(int addition);

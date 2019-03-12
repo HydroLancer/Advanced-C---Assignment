@@ -4,27 +4,27 @@
 
 #include "MonopolyHeader.hpp"
 #include <crtdbg.h>  
+#include "AllTheClasses.h"
 
-#include "CSquare.h"
-#include "CSpecial.h"
-#include "CProperty.h"
-#include "CPlayer.h"
-#include "CAirport.h"
 
 void boardLoading(std::vector<CSquare*>& board);
-
-
-int main()
+int Run()
 {
 	std::vector<CSquare*> board;
 	boardLoading(board);
 	CPlayer* playerOne = new CPlayer("Dog", 1); //instantiates 2 new players
 	CPlayer* playerTwo = new CPlayer("Car", 2);
 	int seed = 0;
-	
+
 	//Drags up the seed number from the seed.txt file.
 	std::ifstream seedFile;
 	seedFile.open("seed.txt");
+	if (!seedFile)
+	{
+		std::cout << "Cannot find seed file" << std::endl;
+		std::system("pause");
+		return 0;
+	}
 	while (!seedFile.eof())
 	{
 		seedFile >> seed;
@@ -41,30 +41,21 @@ int main()
 	{
 		round++;
 		
-		std::cout << std::endl << "Round " << round << std::endl;
-		
-
 		//---------Player One's Turn----------------//
-		std::cout << playerOne->ReturnName() << "'s Turn" << std::endl;
 
-		//Player 1 rolls, lands on a space
-		//As described in CSquare.h, LandedOn is a virtual function and reacts according to CSquare Type (either Property or Special)
+		/*Bit complex.
+		The best way to describe how this works is: Cplayer::Roll() returns where the player is currently positioned.
+		within Roll(), it calculates the current position + what the player rolled, then returns the new position
+		So as a result, the below line accesses a single square and runs the virtual method which differs between each instanced class.*/
+		board[playerOne->Roll()]->LandedOn(playerOne, playerTwo);
 
-		int roll = playerOne->Roll(); 
-		board[roll]->LandedOn(playerOne, playerTwo);
-		
 		std::cout << playerOne->ReturnName() << " has " << POUND << playerOne->ReturnBalance() << std::endl << std::endl;
-		std::system("pause");
-		std::cout << std::endl;
 
 		//---------Player 2's Turn------------------//
-		std::cout << playerTwo->ReturnName() << "'s Turn" << std::endl;
-		roll = playerTwo->Roll();
-		board[roll]->LandedOn(playerTwo, playerOne);
+
+		board[playerTwo->Roll()]->LandedOn(playerTwo, playerOne);
 
 		std::cout << playerTwo->ReturnName() << " has " << POUND << playerTwo->ReturnBalance() << std::endl << std::endl;
-		std::system("pause");
-		std::cout << std::endl;
 
 		if (round >= 20)
 		{
@@ -73,11 +64,6 @@ int main()
 	}
 	std::cout << "Game Over!" << std::endl << std::endl;
 
-	std::cout << playerOne->ReturnName() << " finished with " << POUND << playerOne->ReturnBalance() 
-		<< " and " << playerOne->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
-
-	std::cout << playerTwo->ReturnName() << " finished with " << POUND << playerTwo->ReturnBalance() 
-		<< " and " << playerTwo->ReturnPortfolioSize() << " properties" << std::endl << std::endl;
 
 	std::system("pause");
 
@@ -90,19 +76,28 @@ int main()
 
 	delete playerOne;
 	delete playerTwo;
+}
+
+int main()
+{
+	Run();
 	_CrtDumpMemoryLeaks();
 	return 0;
 
 }
 
-//Pulls the board from a txt file and loads them into appropriate classes. 
+//Pulls the board from a txt file and loads them into appropriate classes.
+//Simply uses the code from the start of each line to determine what the square actually should be using the CSquare Constructor to add in codes and names
+//for Property, further parameters are passed in for CProperty's constructor which has their own data members.
+//then instances a new derived class using an almost entirely abstract class CSquare
+//After it's created the class, it then puts it into the 'board' vector, ready for the game to run.
 void boardLoading(std::vector<CSquare*>& board)
 {
 	std::ifstream inputFile;
 	inputFile.open("Monopoly.txt");
 	if (!inputFile)
 	{
-		std::cout << "Wuh oh.";
+		std::cout << "Monopoly.txt not found";
 		return;
 	}
 	while (!inputFile.eof())
@@ -113,11 +108,12 @@ void boardLoading(std::vector<CSquare*>& board)
 		int rent;
 		int cost;
 		int group;
-		CSquare* Square;
+		CSquare* Square; //Abstract class, ready for getting a new derived class to be loaded. 
 
 		inputFile >> code;
 
 		//this bunch of ifs just checks a square's code and acts appropriately
+		//these are split up because of the way the names work. Some are 2 words, some are 3 words, some are just 1 word. 
 		if (code == 1) //A property type
 		{
 			inputFile >> tempName;
@@ -127,16 +123,28 @@ void boardLoading(std::vector<CSquare*>& board)
 			inputFile >> cost;
 			inputFile >> rent;
 			inputFile >> group;
-			Square = new CProperty(code, tempName, cost, rent, group); //Not sure if I'm doing this right??
-			Square->ReturnName();
+			Square = new CProperty(code, tempName, cost, rent, group);
 		}
-		if (code == 2 || code == 4 || code == 5 || code == 6) //Special Squares (GO, Bonus, Penalty, Jail)
+		else if (code == 2 || code == 4 || code == 5 || code == 6) //Special Squares (GO, Bonus, Penalty, Jail)
 		{
 			inputFile >> tempName;
-			Square = new CSpecial(code, tempName);
-			Square->ReturnName();
+			switch (code)
+			{
+			case 2:
+				Square = new CGo(code, tempName);
+				break;
+			case 4:
+				Square = new CBonus(code, tempName);
+				break;
+			case 5:
+				Square = new CPenalty(code, tempName);
+				break;
+			case 6:
+				Square = new CJustVisiting(code, tempName);
+				break;
+			}
 		}
-		if (code == 3 || code == 8) //Airport or Free Parking
+		else if (code == 3 || code == 8) //Airport or Free Parking
 		{
 			inputFile >> tempName;
 			inputFile >> nameAppend;
@@ -147,24 +155,20 @@ void boardLoading(std::vector<CSquare*>& board)
 			}
 			else 
 			{
-				Square = new CSpecial(code, tempName);
+				Square = new CFreeParking(code, tempName);
 			}
-			
-			Square->ReturnName();
 		}
-		if (code == 7) // Go To Jail
+		else if (code == 7) // Go To Jail
 		{
 			inputFile >> tempName;
 			inputFile >> nameAppend;
 			tempName = tempName + " " + nameAppend;
 			inputFile >> nameAppend;
 			tempName = tempName + " " + nameAppend;
-			Square = new CSpecial(code, tempName);
-			Square->ReturnName();
+			Square = new CGoToJail(code, tempName);
 		}
+
+		//Now the class has been set up, stick the square onto the board. 
 		board.push_back(Square);
 	}
-	//time to try file input again..
-	std::cout << "Map Done!" << std::endl;
-	system("pause");
 }

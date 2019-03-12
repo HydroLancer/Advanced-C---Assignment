@@ -28,12 +28,8 @@ int CPlayer::ReturnPlayerNumber()
 {
 	return mPlayerNumber;
 }
-int CPlayer::ReturnPortfolioSize()
-{
-	return ownedProperties->size();
-}
 
-//Setters
+//Setters Used in a bunch of functions across the CSquare family.
 void CPlayer::AddBalance(int addition)
 {
 	mBalance = mBalance + addition;
@@ -44,14 +40,14 @@ void CPlayer::MinusBalance(int removal)
 	mBalance = mBalance - removal;
 }
 
-//Adds the position of the owned property into a vector. 
+//Adds the position of the owned property into a vector. Not really useful, but can essentially see at a glance which specific 
+//properties/airports the player owns.
 void CPlayer::AddProperty(int pos)
 {
-	//Adds the number of the board position to the vector with the player's portfolio
 	ownedProperties->push_back(pos);
 }
 
-//Pretty much only used in CSpecial::LandedOn() to force the player to move from Go To Jail to Jail.
+//Pretty much only used in CGoToJail to force the player to move from Go To Jail to Jail.
 void CPlayer::SetPosition(int newPos)
 {
 	mPosition = newPos;
